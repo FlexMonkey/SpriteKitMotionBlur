@@ -28,6 +28,15 @@ class ViewController: UIViewController, SKSceneDelegate
         UIColor.yellowColor()]
     
     var mode: Mode = .MotionBlur
+    {
+        didSet
+        {
+            scene.filter = mode == .MetaBalls ? MetaBallFilter() : nil
+            scene.shouldEnableEffects = mode == .MetaBalls
+        }
+    }
+    
+    let metaBallFilter = MetaBallFilter()
     
     override func viewDidLoad()
     {
@@ -78,6 +87,7 @@ class ViewController: UIViewController, SKSceneDelegate
         {
             if mode == .MotionBlur
             {
+                (node as! MotionBlurredBall).shouldEnableEffects = true
                 (node as! MotionBlurredBall).updateMotionBlur()
             }
             else
@@ -160,6 +170,8 @@ class ViewController: UIViewController, SKSceneDelegate
             width: view.frame.width,
             height: modeSegmentedControl.intrinsicContentSize().height)
     }
+    
+    // MARK: SceneKit 
     
     func createWalls()
     {
