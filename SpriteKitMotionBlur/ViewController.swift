@@ -64,7 +64,7 @@ class ViewController: UIViewController, SKSceneDelegate
         radialGravity.strength = 0
         scene.addChild(radialGravity)
         
-        createWalls()
+        scene.physicsBody = SKPhysicsBody(edgeLoopFromRect: view.frame);
 
         scene.delegate = self
         
@@ -170,45 +170,6 @@ class ViewController: UIViewController, SKSceneDelegate
             width: view.frame.width,
             height: modeSegmentedControl.intrinsicContentSize().height)
     }
-    
-    // MARK: SceneKit 
-    
-    func createWalls()
-    {
-        let leftWall = SKShapeNode(rectOfSize: CGSize(width: 2, height: view.frame.height))
-        leftWall.position = CGPoint(x: -2, y: view.frame.height / 2)
-        leftWall.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 2, height: view.frame.height))
-        leftWall.physicsBody?.dynamic = false
-        leftWall.physicsBody?.restitution = 0
-        leftWall.hidden = true
-        scene.addChild(leftWall)
-        
-        let rightWall = SKShapeNode(rectOfSize: CGSize(width: 2, height: view.frame.height))
-        rightWall.position = CGPoint(x: view.frame.width + 2, y: view.frame.height / 2)
-        rightWall.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 2, height: view.frame.height))
-        rightWall.physicsBody?.dynamic = false
-        rightWall.physicsBody?.restitution = 0
-        rightWall.hidden = true
-        scene.addChild(rightWall)
-        
-        let floor = SKShapeNode(rectOfSize: CGSize(width: view.frame.width, height: 2))
-        floor.position = CGPoint(x: view.frame.width / 2, y: -2)
-        floor.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: view.frame.width, height: 2))
-        floor.physicsBody?.dynamic = false
-        floor.physicsBody?.restitution = 0
-        floor.hidden = true
-        scene.addChild(floor)
-
-        let ceiling = SKShapeNode(rectOfSize: CGSize(width: view.frame.width, height: 2))
-        ceiling.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - 2)
-        ceiling.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: view.frame.width, height: 2))
-        ceiling.physicsBody?.dynamic = false
-        ceiling.physicsBody?.restitution = 0
-        ceiling.hidden = true
-        scene.addChild(ceiling)
-        
-    }
-    
 }
 
 enum Mode: String
